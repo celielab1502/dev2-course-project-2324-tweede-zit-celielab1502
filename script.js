@@ -1,6 +1,7 @@
 const form = document.querySelector('form');
 const sortWeightButton = document.querySelector('#sortByWeightButton')
 const sortHeightButton = document.querySelector('#sortByHeightButton')
+const filterByTypeSelector = document.querySelector('select');
 let pokemonArray = [];
 
 const submitAmount = (event) => {
@@ -38,17 +39,37 @@ const submitAmount = (event) => {
             });
         }
 
-            const sortHeight = (event) =>{
-                event.preventDefault();
-                pokemonArray.sort((a, b) => a.height - b.height);
-                cardContainer.innerHTML = "";
-                pokemonArray.forEach(pokemonCard => {
-                    cardContainer.appendChild(pokemonCard.renderCard());
-                });
+        const sortHeight = (event) =>{
+            event.preventDefault();
+            pokemonArray.sort((a, b) => a.height - b.height);
+            cardContainer.innerHTML = "";
+            pokemonArray.forEach(pokemonCard => {
+                cardContainer.appendChild(pokemonCard.renderCard());
+            });
         }
 
+        const filterByType = event =>{
+            event.preventDefault();
+            const selectedType = event.target.value;
+
+            if (selectedType === "all") {
+                renderFilteredCards(pokemonArray);
+            } else {
+                const filteredArray = pokemonArray.filter(pokemonCard => 
+                    pokemonCard.types.includes(selectedType)
+                );
+                renderFilteredCards(filteredArray);
+            }
+        }
+        const renderFilteredCards = (filteredArray) => {
+            cardContainer.innerHTML = ""; 
+            filteredArray.forEach(pokemonCard => {
+                cardContainer.appendChild(pokemonCard.renderCard()); 
+            });
+        }
         sortWeightButton.addEventListener("click",sortWeight);
         sortHeightButton.addEventListener("click",sortHeight);
+        filterByTypeSelector.addEventListener("change", filterByType);
     })
 }
 

@@ -13,45 +13,36 @@
 
     <p>How many Pokémon do you want to see?</p>
     <form action="#">
-        <input type="number" min="1">
+        <input type="number" min="1" max="10277">
         <button type="submit">Go</button>
     </form>
     <div class="button-container ">
         <button id="sortByWeightButton">Sort by Weight</button>
         <button id="sortByHeightButton">Sort by Height</button>
+    
+        <p id="filterParagraph">filter by type</p>
+        <select>
+            <option value="normal">all</option>
+            <option value="normal">normal</option>
+            <option value="fighting">fighting</option>
+            <option value="flying">flying</option>
+            <option value="poison">poison</option>
+            <option value="ground">ground</option>
+            <option value="rock">rock</option>
+            <option value="bug">bug</option>
+            <option value="ghost">ghost</option>
+            <option value="steel">steel</option>
+            <option value="fire">fire</option>
+            <option value="water">water</option>
+            <option value="grass">grass</option>
+            <option value="psychic">psychic</option>
+            <option value="ice">ice</option>
+            <option value="dragon">dragon</option>
+            <option value="fairy">fairy</option>
+        </select>
     </div>
 
     <div class="card-container">
-        <div class="card">
-            <img alt="Card Image">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-        <!-- <div class="card">
-            <img alt="Card Image">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-        <div class="card">
-            <img alt="Card Image">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-        <div class="card">
-            <img alt="Card Image">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-        <div class="card">
-            <img alt="Card Image">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-        <div class="card">
-            <img alt="Card Image">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div> -->
     </div>
 </body>
 </html>
