@@ -1,4 +1,4 @@
-const form = document.querySelector("form");
+const form = document.querySelector('form');
 
 const submit = (event) => {
     event.preventDefault();
@@ -10,55 +10,63 @@ const submit = (event) => {
     .then(response => response.json())
     .then (data => {
         const cardContainer = document.querySelector('.card-container');
-        cardContainer.innerHTML = '';
+        cardContainer.innerHTML = "";
 
         for (let i = 0; i< amountOfPokemon; i++ ){
                 let pokemonName = data.results[i].name
                 fetch(apiLink + pokemonName)
                 .then(response => response.json())
                 .then (pokemonData => {
-                    console.log(pokemonData)
-                    
-                    const card = document.createElement('div');
-                    card.classList.add('card');
-
-                    const pokemonTitle = document.createElement('h2');
-                    pokemonTitle.innerText = pokemonData.name;
-                    pokemonTitle.classList.add('card-title')
-
-                    const pokemonImage = document.createElement('img');
-                    pokemonImage.src = pokemonData.sprites.front_default;
-                    
-                    const weightElement = document.createElement('p');
-                    weightElement.innerText = "Weight: " + pokemonData.weight + "hg";
-                    weightElement.classList.add('card-paragraph');
-                    
-                    const heightElement = document.createElement('p');
-                    heightElement.innerText = "Height: " + pokemonData.height + "dm";
-                    heightElement.classList.add('card-paragraph');
-
-                    card.appendChild(pokemonTitle);
-                    card.appendChild(pokemonImage);
-                    card.appendChild(weightElement);
-                    card.appendChild(heightElement);
-
-                    for (let i = 0; i<pokemonData.types.length; i++ ){
-                        const typeName = pokemonData.types[i].type.name;
-                        let pokeTypeName = document.createElement('p')
-                        pokeTypeName.innerText = "Type: " + typeName;
-                        pokeTypeName.classList.add('card-paragraph');
-                        card.appendChild(pokeTypeName);
-                    }
-
-                    cardContainer.appendChild(card);
-
-
-                    
-                })
-                
-
+                    const pokemonCard = new PokemonCard(pokemonData);
+                    cardContainer.appendChild(pokemonCard.renderCard());    
+                })  
         }
-            
     })
 }
 form.addEventListener("submit", submit);
+
+class PokemonCard {
+    constructor(pokemonData) {
+        this.name = pokemonData.name;
+        this.imageSrc = pokemonData.sprites.front_default;
+        this.weight = pokemonData.weight;
+        this.height = pokemonData.height;
+        this.types = [];
+        for (let i = 0; i < pokemonData.types.length; i++) {
+            this.types.push(pokemonData.types[i].type.name);
+        }
+    }
+    renderCard() {
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        const pokemonTitle = document.createElement('h2');
+        pokemonTitle.innerText = this.name;
+        pokemonTitle.classList.add('card-title');
+
+        const pokemonImage = document.createElement('img');
+        pokemonImage.src = this.imageSrc;
+
+        const weightElement = document.createElement('p');
+        weightElement.innerText = "Weight: " + this.weight + "hg";
+        weightElement.classList.add('card-paragraph');
+
+        const heightElement = document.createElement('p');
+        heightElement.innerText = "Height: " + this.height + "dm";
+        heightElement.classList.add('card-paragraph');
+
+        card.appendChild(pokemonTitle);
+        card.appendChild(pokemonImage);
+        card.appendChild(weightElement);
+        card.appendChild(heightElement);
+
+        this.types.forEach(typeName => {
+            const pokeTypeName = document.createElement('p');
+            pokeTypeName.innerText = "Type: " + typeName;
+            pokeTypeName.classList.add('card-paragraph');
+            card.appendChild(pokeTypeName);
+        });
+
+        return card;
+    }
+}
