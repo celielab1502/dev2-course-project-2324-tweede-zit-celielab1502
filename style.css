@@ -17,6 +17,10 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+
+h2{
+    text-transform: capitalize;
+}
 p {
     font-size: 20px;
     color: #333;
