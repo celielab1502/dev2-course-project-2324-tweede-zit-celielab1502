@@ -1,16 +1,22 @@
 const form = document.querySelector('form');
+const sortWeightButton = document.querySelector('#sortByWeightButton')
+const sortHeightButton = document.querySelector('#sortByHeightButton')
+let pokemonArray = [];
 
-const submit = (event) => {
+const submitAmount = (event) => {
     event.preventDefault();
     const amountOfPokemon = (event.target[0].value);
     const limitLinkSnippet = "?offset=0&limit="
     const apiLink = "https://pokeapi.co/api/v2/pokemon/"
+
 
     fetch(apiLink + limitLinkSnippet + amountOfPokemon)
     .then(response => response.json())
     .then (data => {
         const cardContainer = document.querySelector('.card-container');
         cardContainer.innerHTML = "";
+        pokemonArray = [];
+
 
         for (let i = 0; i< amountOfPokemon; i++ ){
                 let pokemonName = data.results[i].name
@@ -18,12 +24,36 @@ const submit = (event) => {
                 .then(response => response.json())
                 .then (pokemonData => {
                     const pokemonCard = new PokemonCard(pokemonData);
-                    cardContainer.appendChild(pokemonCard.renderCard());    
+                    cardContainer.appendChild(pokemonCard.renderCard());  
+                    pokemonArray.push(pokemonCard);
                 })  
         }
+
+        const sortWeight = (event) =>{
+            event.preventDefault();
+            pokemonArray.sort((a, b) => a.weight - b.weight);
+            cardContainer.innerHTML = "";
+            pokemonArray.forEach(pokemonCard => {
+                cardContainer.appendChild(pokemonCard.renderCard());
+            });
+        }
+
+            const sortHeight = (event) =>{
+                event.preventDefault();
+                pokemonArray.sort((a, b) => a.height - b.height);
+                cardContainer.innerHTML = "";
+                pokemonArray.forEach(pokemonCard => {
+                    cardContainer.appendChild(pokemonCard.renderCard());
+                });
+        }
+
+        sortWeightButton.addEventListener("click",sortWeight);
+        sortHeightButton.addEventListener("click",sortHeight);
     })
 }
-form.addEventListener("submit", submit);
+
+form.addEventListener("submit", submitAmount);
+
 
 class PokemonCard {
     constructor(pokemonData) {
