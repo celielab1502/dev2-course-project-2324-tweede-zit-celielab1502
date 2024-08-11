@@ -3,6 +3,7 @@ const sortWeightButton = document.querySelector('#sortByWeightButton')
 const sortHeightButton = document.querySelector('#sortByHeightButton')
 const filterByTypeSelector = document.querySelector('select');
 let pokemonArray = [];
+let pokemonChart; 
 
 const submitAmount = (event) => {
     event.preventDefault();
@@ -27,6 +28,18 @@ const submitAmount = (event) => {
                     const pokemonCard = new PokemonCard(pokemonData);
                     cardContainer.appendChild(pokemonCard.renderCard());  
                     pokemonArray.push(pokemonCard);
+
+                    if (pokemonArray.length === parseInt(amountOfPokemon)) {
+                        const pokemonNames = [];
+                        const pokemonWeights = [];
+                        
+                        for (let j = 0; j < pokemonArray.length; j++) {
+                            pokemonNames.push(pokemonArray[j].name);
+                            pokemonWeights.push(pokemonArray[j].weight);
+                        } 
+
+                        updateChart(pokemonNames, pokemonWeights);
+                    }
                 })  
         }
 
@@ -37,6 +50,16 @@ const submitAmount = (event) => {
             pokemonArray.forEach(pokemonCard => {
                 cardContainer.appendChild(pokemonCard.renderCard());
             });
+            
+            const sortedNames = [];
+            const sortedWeights = [];
+            
+            for (let i = 0; i < pokemonArray.length; i++) {
+            sortedNames.push(pokemonArray[i].name);
+            sortedWeights.push(pokemonArray[i].weight);
+            }
+
+            updateChart(sortedNames, sortedWeights);
         }
 
         const sortHeight = (event) =>{
@@ -75,6 +98,34 @@ const submitAmount = (event) => {
 
 form.addEventListener("submit", submitAmount);
 
+const updateChart = (labels, data) => {
+    const ctx = document.getElementById('pokemonWeightChart').getContext('2d');
+
+    if (pokemonChart) {
+        pokemonChart.destroy();
+    }
+
+    pokemonChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Weight of Pokémon',
+                data: data,
+                backgroundColor: '#8b0000',
+                borderColor: '#ffffff',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+};
 
 class PokemonCard {
     constructor(pokemonData) {

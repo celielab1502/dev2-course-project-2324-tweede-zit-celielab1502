@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dev2 Tweede Zit</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js" defer type="module"></script>
 </head>
 <body>
@@ -22,7 +23,7 @@
     
         <p id="selectorParagraph">filter by type</p>
         <select>
-            <option value="allgit">all</option>
+            <option value="all">all</option>
             <option value="normal">normal</option>
             <option value="fighting">fighting</option>
             <option value="flying">flying</option>
@@ -41,8 +42,10 @@
             <option value="fairy">fairy</option>
         </select>
     </div>
-
-    <div class="card-container">
+    <div class="chart-container">
+        <canvas id="pokemonWeightChart"></canvas>
     </div>
+    
+    <div class="card-container"></div>
 </body>
 </html>
