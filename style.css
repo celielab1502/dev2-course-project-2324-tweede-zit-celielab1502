@@ -81,6 +81,30 @@ form button:hover {
     background-color: #a52a2a;
 }
 
+#selectorParagraph{
+    font-size: 16px;
+}
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    cursor: pointer;
+}
+
+select:hover {
+    border-color: #8b0000;
+}
+
+select:focus {
+    border-color: #8b0000;
+    box-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+}
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
