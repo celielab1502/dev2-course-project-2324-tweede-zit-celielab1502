@@ -199,3 +199,11 @@ class PokemonCard {
         return card;
     }
 }
+
+/* Bronnen 
+- Elabed, Céline — Voorbije oefeningeng. Geraadpleegd op 11 augustus 2024.
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript. Geraadpleegd op 11 augustus 2024. (voor hulp syntax)
+Chart:
+- https://www.chartjs.org/docs/. Geraadpleegd op 11 augustus 2024.
+- https://www.chatgpt./. Geraadpleegd op 11 augustus 2024.
+*/
