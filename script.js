@@ -32,13 +32,15 @@ const submitAmount = (event) => {
                     if (pokemonArray.length === parseInt(amountOfPokemon)) {
                         const pokemonNames = [];
                         const pokemonWeights = [];
+                        const pokemonHeights = [];
                         
                         for (let j = 0; j < pokemonArray.length; j++) {
                             pokemonNames.push(pokemonArray[j].name);
                             pokemonWeights.push(pokemonArray[j].weight);
+                            pokemonHeights.push(pokemonArray[j].height);
                         } 
 
-                        updateChart(pokemonNames, pokemonWeights);
+                        updateChart(pokemonNames, pokemonWeights, pokemonHeights);
                     }
                 })  
         }
@@ -53,13 +55,16 @@ const submitAmount = (event) => {
             
             const sortedNames = [];
             const sortedWeights = [];
+            const sortedHeights = [];
             
             for (let i = 0; i < pokemonArray.length; i++) {
             sortedNames.push(pokemonArray[i].name);
             sortedWeights.push(pokemonArray[i].weight);
+            sortedHeights.push(pokemonArray[i].height);
+            
             }
 
-            updateChart(sortedNames, sortedWeights);
+            updateChart(sortedNames, sortedWeights, sortedHeights);
         }
 
         const sortHeight = (event) =>{
@@ -69,6 +74,18 @@ const submitAmount = (event) => {
             pokemonArray.forEach(pokemonCard => {
                 cardContainer.appendChild(pokemonCard.renderCard());
             });
+
+            const sortedNames = [];
+            const sortedWeights = [];
+            const sortedHeights = [];
+            
+            for (let i = 0; i < pokemonArray.length; i++) {
+            sortedNames.push(pokemonArray[i].name);
+            sortedWeights.push(pokemonArray[i].weight);
+            sortedHeights.push(pokemonArray[i].height);
+            }
+
+            updateChart(sortedNames, sortedWeights, sortedHeights);
         }
 
         const filterByType = event =>{
@@ -98,8 +115,8 @@ const submitAmount = (event) => {
 
 form.addEventListener("submit", submitAmount);
 
-const updateChart = (labels, data) => {
-    const ctx = document.getElementById('pokemonWeightChart').getContext('2d');
+const updateChart = (labels, weights, heights) => {
+    const ctx = document.getElementById('pokemonChart').getContext('2d');
 
     if (pokemonChart) {
         pokemonChart.destroy();
@@ -109,23 +126,33 @@ const updateChart = (labels, data) => {
         type: 'bar',
         data: {
             labels: labels,
-            datasets: [{
-                label: 'Weight of Pokémon',
-                data: data,
-                backgroundColor: '#8b0000',
-                borderColor: '#ffffff',
-                borderWidth: 1
-            }]
+            datasets: [
+                {
+                    label: 'Weight of Pokémon (hg)',
+                    data: weights,
+                    backgroundColor: '#8b0000',
+                    borderColor: '#ffffff',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Height of Pokémon (dm)',
+                    data: heights,
+                    backgroundColor: '#FF0000',
+                    borderColor: '#ffffff',
+                    borderWidth: 1
+                }
+            ]
         },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
-                }
+                    beginAtZero: true,
+                },
             }
         }
     });
 };
+
 
 class PokemonCard {
     constructor(pokemonData) {
